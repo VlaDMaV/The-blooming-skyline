@@ -1,5 +1,5 @@
 package com.example.thebloomingskyline
 
-class User(val login: String, val email: String, val pass: String) {
+class User(val email: String, val pass: String) {
 
 }

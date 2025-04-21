@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FFE5D9"
-    tools:context=".MainActivity">
+    tools:context=".RegActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -35,18 +35,6 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/user_login"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textColorHint="#000000"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:textColor="#000000"
-        android:hint="Введите логин" />
-
-    <EditText
         android:id="@+id/user_email"
         android:layout_width="220dp"
         android:layout_height="50dp"
@@ -70,6 +58,18 @@
         android:textColor="#000000"
         android:hint="Введите пароль" />
 
+    <EditText
+        android:id="@+id/user_pass_repeat"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textColorHint="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textColor="#000000"
+        android:hint="Повторите пароль" />
+
     <Button
         android:id="@+id/button_reg"
         android:layout_width="220dp"
@@ -81,5 +81,16 @@
         android:backgroundTint="#000000"
         android:textSize="16sp"
         android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/aboreto"
+        android:text="Уже есть аккаунт, войти"
+        android:textColor="#000000"
+        android:textSize="15sp" />
 
 </LinearLayout>
