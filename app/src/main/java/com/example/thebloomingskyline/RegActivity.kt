@@ -17,6 +17,15 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class RegActivity : AppCompatActivity() {
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
+        val savedEmail = sharedPreferences.getString("user_email", null)
+        if (savedEmail != null) {
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

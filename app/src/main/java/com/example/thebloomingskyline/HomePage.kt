@@ -9,6 +9,7 @@ import android.content.Intent
 import androidx.core.view.WindowInsetsCompat
 import android.widget.TextView
 import android.widget.Button
+import android.widget.ImageButton
 
 class HomePage : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -23,18 +24,38 @@ class HomePage : AppCompatActivity() {
         }
 
         val text: TextView = findViewById(R.id.textView2)
-        val button: Button = findViewById(R.id.button)
-        val button2: Button = findViewById(R.id.button_hp2)
+
+        val butMenu1: ImageButton = findViewById(R.id.imageButton1)
+        val butMenu2: ImageButton = findViewById(R.id.imageButton2)
+        val butMenu3: ImageButton = findViewById(R.id.imageButton3)
+        val butMenu4: ImageButton = findViewById(R.id.imageButton4)
+        val butMenu5: ImageButton = findViewById(R.id.imageButton5)
 
         text.text = "Привет!"
 
-        button.setOnClickListener {
-            val intent = Intent(this, RegActivity::class.java)
+        // Переходы по страницам меню
+        butMenu1.setOnClickListener {
+            val intent = Intent(this, HomePage::class.java)
             startActivity(intent)
         }
 
-        button2.setOnClickListener {
-            val intent = Intent(this, AuthActivity::class.java)
+        butMenu2.setOnClickListener {
+            val intent = Intent(this, Catalog::class.java)
+            startActivity(intent)
+        }
+
+        butMenu3.setOnClickListener {
+            val intent = Intent(this, Buket::class.java)
+            startActivity(intent)
+        }
+
+        butMenu4.setOnClickListener {
+            val intent = Intent(this, Basket::class.java)
+            startActivity(intent)
+        }
+
+        butMenu5.setOnClickListener {
+            val intent = Intent(this, Profile::class.java)
             startActivity(intent)
         }
 

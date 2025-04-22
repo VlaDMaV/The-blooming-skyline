@@ -1,6 +1,7 @@
 package com.example.thebloomingskyline
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 class AuthActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -42,8 +44,11 @@ class AuthActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         val userAuthEmail = FirebaseAuth.getInstance().currentUser
                         if (userAuthEmail?.isEmailVerified == true) {
+                            // Сохраняем email пользователя для дальнейшего работы с БД
+                            val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
+                            sharedPreferences.edit().putString("user_email", email).apply()
                             // Пользователь подтвердил email
-                            startActivity(Intent(this, HomePage::class.java))
+                            finish()
                         } else {
                             // Пользователь не подтвердил email
                             Toast.makeText(this, "Пожалуйста, подтвердите свой email", Toast.LENGTH_SHORT).show()
