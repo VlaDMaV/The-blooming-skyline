@@ -25,6 +25,12 @@
             android:name=".Catalog"
             android:exported="false" />
         <activity
+            android:name=".catalogue.FlowersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".catalogue.FlowerDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomePage"
             android:exported="true">
             <intent-filter>

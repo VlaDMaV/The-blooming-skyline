@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#fff6e6">
+
+
+    <TextView
+        android:id="@+id/flowerNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/flowerPriceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="37dp" />
+
+    <TextView
+        android:id="@+id/flowerCountTextView"
+        android:layout_width="match_parent"
+        android:layout_height="37dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FFE5D9" />
+</LinearLayout>
