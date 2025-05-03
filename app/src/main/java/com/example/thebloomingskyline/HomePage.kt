@@ -18,6 +18,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 
+
 class HomePage : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
 
