@@ -46,10 +46,10 @@ class Basket : AppCompatActivity() {
             val promo = promoField.text.toString()
 
             if (shipping.isEmpty() || delivery.isEmpty() || payment.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
             } else {
                 // Показать сообщение об успешном заказе
-                Toast.makeText(this, "Order placed successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Заказ выполнен успешно", Toast.LENGTH_SHORT).show()
             }
         }
     }
