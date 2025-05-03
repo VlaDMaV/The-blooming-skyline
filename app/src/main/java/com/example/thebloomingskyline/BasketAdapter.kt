@@ -35,7 +35,6 @@ class BasketAdapter(private val cartItems: List<Flower>) : RecyclerView.Adapter<
                 .override(48, 48)
                 .into(holder.productImage)
         } else {
-            // Загрузка локального изображения из drawable
             try {
                 val resourceId = holder.itemView.context.resources.getIdentifier(
                     item.imageUrl?.replace(".jpg", ""),
