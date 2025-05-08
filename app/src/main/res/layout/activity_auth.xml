@@ -5,20 +5,25 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellow"
     android:orientation="vertical"
-    android:background="#FFE5D9"
     tools:context=".AuthActivity">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="302dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="The blooming skyline"
-        android:textColor="#000000"
-        android:textSize="25sp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/carattere"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="17"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/salmon"
+        android:textSize="45sp"
         android:textStyle="bold" />
 
     <TextView
@@ -29,8 +34,8 @@
         android:layout_marginTop="100dp"
         android:fontFamily="@font/inter_bold"
         android:gravity="center"
-        android:text="Создайте аккаунт"
-        android:textColor="#000000"
+        android:text="@string/sing"
+        android:textColor="@color/brown"
         android:textSize="25sp"
         android:textStyle="bold" />
 
@@ -38,25 +43,25 @@
         android:id="@+id/user_email"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textColorHint="#000000"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:textColor="#000000"
-        android:hint="Введите email" />
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/brown"
+        android:textColorHint="@color/hint" />
 
     <EditText
         android:id="@+id/user_pass"
         android:layout_width="220dp"
         android:layout_height="50dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textColorHint="#000000"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:textColor="#000000"
-        android:hint="Введите пароль" />
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/pass"
+        android:inputType="textPassword"
+        android:textColor="@color/brown"
+        android:textColorHint="@color/hint" />
 
     <Button
         android:id="@+id/button_reg"
@@ -64,9 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:backgroundTint="#000000"
-        android:text="Войти"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="@color/green"
+        android:text="@string/button2"
+        android:textColor="@color/brown"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -75,10 +80,10 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="1dp"
-        android:backgroundTint="#000000"
-        android:text="Отправить ещё письмо"
-        android:textColor="#FFFFFF"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="@color/green"
+        android:text="@string/button3"
+        android:textColor="@color/brown"
         android:textSize="16sp"
         android:textStyle="bold" />
 
