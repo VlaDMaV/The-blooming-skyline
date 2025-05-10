@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">The blooming skyline</string>
+    <string name="acc">Создайте аккаунт</string>
+    <string name="emailHint">Введите email</string>
+    <string name="pass">Введите пароль</string>
+    <string name="repass">Повторите пароль</string>
+    <string name="button1">Зарегистрироваться</string>
+    <string name="textBottom">Уже есть аккаунт, войти</string>
+    <string name="sing">Войдите в аккаунт</string>
+    <string name="button2">Войти</string>
+    <string name="button3">Отправить ещё письмо</string>
 </resources>
