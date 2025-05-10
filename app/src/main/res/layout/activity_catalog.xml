@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".Catalog">
 
+
     <TextView
         android:id="@+id/textViewCat"
         android:layout_width="wrap_content"

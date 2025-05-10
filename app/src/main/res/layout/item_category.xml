@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alwaysDrawnWithCache="true"
+    android:background="#FFE5D9"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/categoryNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="406dp"
+        android:layout_height="40dp" />
+</LinearLayout>
