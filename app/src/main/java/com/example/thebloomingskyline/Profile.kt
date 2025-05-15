@@ -19,7 +19,7 @@ class Profile : AppCompatActivity() {
 
     private fun refreshData() {
         val text: TextView = findViewById(R.id.textViewProf)
-        val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
+            val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
         val savedEmail = sharedPreferences.getString("user_email", null)
         if (savedEmail != null) {
             text.text = "Профиль, $savedEmail!"

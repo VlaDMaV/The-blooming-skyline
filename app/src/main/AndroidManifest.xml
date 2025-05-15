@@ -13,13 +13,13 @@
         android:theme="@style/Theme.TheBloomingSkyline"
         tools:targetApi="31">
         <activity
+            android:name=".ItemDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Profile"
             android:exported="false" />
         <activity
             android:name=".Basket"
-            android:exported="false" />
-        <activity
-            android:name=".Buket"
             android:exported="false" />
         <activity
             android:name=".Catalog"
