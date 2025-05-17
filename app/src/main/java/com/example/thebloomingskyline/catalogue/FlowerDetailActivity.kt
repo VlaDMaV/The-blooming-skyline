@@ -1,13 +1,18 @@
 package com.example.thebloomingskyline.catalogue
 
+import Item
 import com.bumptech.glide.Glide
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.thebloomingskyline.R
+import com.example.thebloomingskyline.catalogue.entity.Flower
 import com.example.thebloomingskyline.catalogue.viewmodel.FlowerViewModel
 
 import com.example.thebloomingskyline.databinding.ActivityFlowerDetailBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class FlowerDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFlowerDetailBinding
@@ -25,7 +30,33 @@ class FlowerDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(FlowerViewModel::class.java)
 
         setupViews()
-        observeFlower()
+        loadFlowerFromCache()?.let { observeFlower(it) }
+    }
+
+    private fun loadFlowerFromCache(): Flower? {
+        val prefs = getSharedPreferences("my_prefs", MODE_PRIVATE)
+        val json = prefs.getString("items_map", null)
+
+        if (json != null) {
+            val type = object : TypeToken<List<Item>>() {}.type
+            val itemsList: List<Item> = Gson().fromJson(json, type)
+
+            for (item in itemsList) {
+                if (item.id == flowerId) {
+                    val flower = Flower(
+                        item.id, item.charack.name, item.charack.text, item.count,
+                        item.price.toDouble(), item.charack.desc
+                    );
+                    //flower.imageUrl = item.image;
+                    return flower
+                }
+            }
+
+            Log.d("HomePage", "Кэш успешно загружен.")
+        } else {
+            Log.d("HomePage", "Кэш не найден, загрузка невозможна.")
+        }
+        return null;
     }
 
     private fun setupViews() {
@@ -40,36 +71,29 @@ class FlowerDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeFlower() {
-        viewModel.getFlowerById(flowerId).observe(this) { flower ->
-            flower?.let {
-                binding.flowerName.text = it.name
-                binding.flowerDescription.text = it.description
-                binding.flowerCount.text = "Количество: ${it.count}"
-                binding.flowerPrice.text = "Цена: ${it.price} ₽"
-                binding.flowerCategory.text = "Категория: ${it.category}"
+    private fun observeFlower(flower: Flower) {
+        binding.flowerName.text = flower.name
+        binding.flowerDescription.text = flower.description
+        binding.flowerCount.text = "Количество: ${flower.count}"
+        binding.flowerPrice.text = "Цена: ${flower.price} ₽"
+        binding.flowerCategory.text = "Категория: ${flower.category}"
 
-                it.imageUrl?.let { imageName ->
-                    val resourceId = resources.getIdentifier(
-                        imageName,  // имя файла (без расширения)
-                        "drawable",  // тип ресурса
-                        packageName  // пакет приложения
-                    )
+        flower.imageUrl?.let { imageName ->
+            val resourceId = resources.getIdentifier(
+                imageName,  // имя файла (без расширения)
+                "drawable",  // тип ресурса
+                packageName  // пакет приложения
+            )
 
-                    if (resourceId != 0) {
-                        Glide.with(this)
-                            .load(resourceId)  // загружаем по ID ресурса
-                            .into(binding.flowerImage)
-                    } else {
-                        // Если изображение не найдено, можно установить placeholder
-                        binding.flowerImage.setImageResource(R.drawable.placeholder)
-                    }
-                }
-
-
+            if (resourceId != 0) {
+                Glide.with(this)
+                    .load(resourceId)  // загружаем по ID ресурса
+                    .into(binding.flowerImage)
+            } else {
+                // Если изображение не найдено, можно установить placeholder
+                binding.flowerImage.setImageResource(R.drawable.placeholder)
             }
         }
-
     }
 
     private fun deleteFlower() {

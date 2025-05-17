@@ -2,7 +2,7 @@ import java.io.Serializable
 
 data class Item(
     val charack: Charack,
-    val count: Int,
+    var count: Int,
     val id: Int,
     val image: String,
     val price: Int

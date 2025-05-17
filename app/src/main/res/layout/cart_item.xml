@@ -3,54 +3,68 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp"
-    android:weightSum="10">
+    android:padding="8dp">
 
-    <!-- Изображение товара -->
     <ImageView
         android:id="@+id/productImage"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_image"/>
+        android:layout_marginEnd="12dp" />
 
-    <!-- Название и описание -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="6"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/productName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Название продукта"
-            android:textSize="16sp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="#000000"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/desc"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Описание"
-            android:textSize="14sp"
-            android:textColor="#888888"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/productQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- Цена продукта -->
-    <TextView
-        android:id="@+id/productPrice"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:text="3000 р."
-        android:textSize="16sp"
-        android:textColor="#000000"
-        android:gravity="end"/>
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/increaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/decreaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/removeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Удалить" />
+    </LinearLayout>
 </LinearLayout>

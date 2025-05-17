@@ -1,16 +1,21 @@
 package com.example.thebloomingskyline.catalogue
 
+import Item
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.thebloomingskyline.ItemDetailActivity
 import com.example.thebloomingskyline.R
 import com.example.thebloomingskyline.catalogue.entity.Flower
 
 import com.example.thebloomingskyline.catalogue.viewmodel.FlowerViewModel
 import com.example.thebloomingskyline.databinding.ActivityFlowersBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class FlowersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFlowersBinding
@@ -28,8 +33,36 @@ class FlowersActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(FlowerViewModel::class.java)
 
         setupRecyclerView()
-        observeFlowers()
+
+        observeFlowers(loadFlowersFromCache());
         //setupAddButton()
+    }
+
+    private fun loadFlowersFromCache(): List<Flower> {
+        val prefs = getSharedPreferences("my_prefs", MODE_PRIVATE)
+        val json = prefs.getString("items_map", null)
+
+        val flowers = HashSet<Flower>();
+        if (json != null) {
+            val type = object : TypeToken<List<Item>>() {}.type
+            val itemsList: List<Item> = Gson().fromJson(json, type)
+
+            for (item in itemsList) {
+                if(category == item.charack.desc) {
+                    val flower = Flower(
+                        item.id, item.charack.name, item.charack.text, item.count,
+                        item.price.toDouble(), item.charack.desc
+                    );
+                    flower.imageUrl = item.image;
+                    flowers.add(flower)
+                }
+            }
+
+            Log.d("HomePage", "Кэш успешно загружен.")
+        } else {
+            Log.d("HomePage", "Кэш не найден, загрузка невозможна.")
+        }
+        return flowers.toList();
     }
 
     private fun setupRecyclerView() {
@@ -40,35 +73,17 @@ class FlowersActivity : AppCompatActivity() {
         binding.flowersRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun observeFlowers() {
-        viewModel.getFlowersByCategory(category).observe(this) { flowers ->
-            (binding.flowersRecyclerView.adapter as FlowerAdapter).submitList(flowers)
-        }
+    private fun observeFlowers(flowers: List<Flower>) {
+        (binding.flowersRecyclerView.adapter as FlowerAdapter).submitList(flowers)
     }
-
-    /*private fun setupAddButton() {
-        binding.addFlowerButton.setOnClickListener {
-            showAddFlowerDialog()
-        }
-    }
-
-    private fun showAddFlowerDialog() {
-        val dialog = AlertDialog.Builder(this)
-            .setTitle("Добавить новый цветок")
-            .setView(R.layout.dialog_add_flower)
-            .setPositiveButton("Добавить") { _, _ ->
-                // Логика добавления
-            }
-            .setNegativeButton("Отмена", null)
-            .create()
-
-        dialog.show()
-    }*/
 
     private fun showFlowerDetails(flower: Flower) {
-        val intent = Intent(this, FlowerDetailActivity::class.java).apply {
-            putExtra("FLOWER_ID", flower.id)
-        }
+        val item = flower.imageUrl?.let {
+            Item(Item.Charack(flower.category,flower.name,flower.description),
+                flower.count,flower.id, it,flower.price.toInt())
+        };
+        val intent = Intent(this, ItemDetailActivity::class.java)
+        intent.putExtra("item", item)
         startActivity(intent)
     }
 }

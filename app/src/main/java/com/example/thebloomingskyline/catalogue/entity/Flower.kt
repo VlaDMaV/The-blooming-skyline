@@ -16,7 +16,7 @@ data class Flower(
     val price: Double,
     val category: String,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis(),
-    @ColumnInfo(name = "image_url") val imageUrl: String? = null
+    @ColumnInfo(name = "image_url") var imageUrl: String? = null
 ) {
     val isLowStock: Boolean
         get() = count < 5

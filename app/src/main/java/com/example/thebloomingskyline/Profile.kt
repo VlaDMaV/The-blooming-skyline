@@ -206,6 +206,12 @@ class Profile : AppCompatActivity() {
 
         val savedEmail = sharedPreferences.getString("user_email", null)
 
+
+        val button: Button = findViewById(R.id.button2)
+        val button2: Button = findViewById(R.id.button_hp)
+        val butAnReg: Button = findViewById(R.id.button)
+        val buttonOrders: Button = findViewById(R.id.button_orders)
+
         // Если пользователь не авторизован - сразу переходим на регистрацию
         if (savedEmail == null) {
             // Если не авторизован - переходим на RegActivity
@@ -213,6 +219,7 @@ class Profile : AppCompatActivity() {
             finish()
             return
         }
+
 
         // Загружаем и отображаем данные пользователя
         loadAndDisplayUserData(savedEmail)
@@ -244,6 +251,12 @@ class Profile : AppCompatActivity() {
         if (requestCode == AUTH_REQUEST_CODE && resultCode == RESULT_OK) {
             recreate() // Перезагружаем Activity после успешного входа
         }
+
+        buttonOrders.setOnClickListener {
+            val intent = Intent(this, OrdersActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun loadAndDisplayUserData(email: String) {

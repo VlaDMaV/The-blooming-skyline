@@ -12,94 +12,112 @@
         android:id="@+id/basketTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Корзина"
         android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Поле для ввода адреса доставки -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/deliveryField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_text_background"
         android:hint="Бесплатная стандартная доставка | 3-4 дня"
         android:padding="16dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/edit_text_background"
-        app:layout_constraintTop_toBottomOf="@id/basketTitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/basketTitle" />
 
     <!-- Поле для ввода информации о платеже -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/paymentField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_background"
         android:hint="Visa *1234"
         android:padding="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/edit_text_background"
-        app:layout_constraintTop_toBottomOf="@id/deliveryField"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/deliveryField" />
 
     <!-- Поле для ввода промокода -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/promoField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_background"
         android:hint="Введите промокод"
         android:padding="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/edit_text_background"
-        app:layout_constraintTop_toBottomOf="@id/paymentField"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/paymentField" />
 
     <!-- Поле для ввода адреса доставки -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/shippingField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_background"
         android:hint="Введите адрес доставки"
         android:padding="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="16dp"
-        android:background="@drawable/edit_text_background"
-        app:layout_constraintTop_toBottomOf="@id/promoField"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/promoField" />
 
     <!-- Кнопка "Оформить заказ" -->
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/placeOrderButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="28dp"
         android:background="@color/green"
+        android:paddingVertical="12dp"
         android:text="Оформить заказ"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:paddingVertical="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shippingField" />
+
+    <TextView
+        android:id="@+id/totalAmountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="40dp"
+        android:padding="8dp"
+        android:text="Сумма: 0.00"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeOrderButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/placeOrderButton"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="60dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/placeOrderButton" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
