@@ -52,50 +52,15 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageProfileGAD"
-        android:layout_width="134dp"
-        android:layout_height="128dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/NameGAD"
-        android:layout_width="500px"
-        android:layout_height="120px"
-        android:layout_marginTop="73dp"
-        android:rotationX="0"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
-        app:layout_constraintStart_toEndOf="@+id/imageProfileGAD"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/Name2GAD"
-        android:layout_width="500px"
-        android:layout_height="120px"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/imageProfileGAD"
-        app:layout_constraintTop_toBottomOf="@+id/NameGAD" />
-
     <TextView
         android:id="@+id/FirstNameGAD"
         android:layout_width="290px"
         android:layout_height="100px"
-        android:layout_marginTop="16dp"
         android:text="ИМЯ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageProfileGAD" />
+        tools:layout_editor_absoluteY="237dp" />
 
     <TextView
         android:id="@+id/LastNameGAD"
@@ -142,12 +107,11 @@
         android:layout_width="600px"
         android:layout_height="100px"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="text"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/FirstNameGAD"
-        app:layout_constraintTop_toBottomOf="@+id/Name2GAD" />
+        tools:layout_editor_absoluteY="217dp" />
 
     <EditText
         android:id="@+id/LastNameAddGAD"
@@ -206,16 +170,6 @@
         android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/CardGAD"
         app:layout_constraintTop_toBottomOf="@+id/PhoneAddGAD" />
-
-    <TextView
-        android:id="@+id/textViewProf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/ButtonForSave"

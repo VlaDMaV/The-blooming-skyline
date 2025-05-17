@@ -46,10 +46,7 @@ class Profile : AppCompatActivity() {
             R.id.GenderGAD,
             R.id.PhoneGAD,
             R.id.CardGAD,
-            R.id.NameGAD,
-            R.id.Name2GAD,
             R.id.button_hp,
-            R.id.textViewProf,
 
             R.id.button_orders
         )
@@ -58,15 +55,6 @@ class Profile : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onResume() {
         super.onResume()
-        refreshData()
-    }
-
-    private fun refreshData() {
-        val text = findViewById<TextView>(R.id.textViewProf)
-        val savedEmail = sharedPreferences.getString("user_email", null)
-        if (savedEmail != null) {
-            text.text = "Профиль, $savedEmail!"
-        }
     }
 
     private fun showAuthorizedUI(isAuthorized: Boolean) {
@@ -84,21 +72,15 @@ class Profile : AppCompatActivity() {
                 R.id.CardAddGAD, R.id.ButtonForSave,
                 R.id.FirstNameGAD, R.id.LastNameGAD,
                 R.id.GenderGAD, R.id.PhoneGAD, R.id.CardGAD,
-                R.id.NameGAD, R.id.Name2GAD, R.id.textViewProf, R.id.button_orders
+                R.id.button_orders
             ).forEach { viewId ->
                 findViewById<View>(viewId).visibility = View.VISIBLE
             }
         } else {
             // Элементы для неавторизованных пользователей
-            listOf(R.id.button_hp, R.id.button2, R.id.textViewProf).forEach { viewId ->
+            listOf(R.id.button_hp, R.id.button2).forEach { viewId ->
                 findViewById<View>(viewId).visibility = View.VISIBLE
             }
-        }
-
-        // Устанавливаем начальный текст
-        findViewById<TextView>(R.id.textViewProf).apply {
-            text = if (isAuthorized) "Профиль" else "Добро пожаловать"
-            visibility = View.VISIBLE
         }
     }
 
@@ -227,8 +209,6 @@ class Profile : AppCompatActivity() {
 
         showAuthorizedUI(true)
 
-        findViewById<TextView>(R.id.textViewProf).text = "Профиль"
-
         findViewById<Button>(R.id.button).setOnClickListener {
             clearUserData()
             recreate()
@@ -316,8 +296,6 @@ class Profile : AppCompatActivity() {
         findViewById<RadioGroup>(R.id.radioGroupGender).clearCheck()
 
         // Очищаем TextView
-        findViewById<TextView>(R.id.NameGAD).text = ""
-        findViewById<TextView>(R.id.Name2GAD).text = ""
         findViewById<TextView>(R.id.GenderGAD).text = "Пол"
         findViewById<TextView>(R.id.PhoneGAD).text = "Телефон"
         findViewById<TextView>(R.id.CardGAD).text = "Номер карты"
