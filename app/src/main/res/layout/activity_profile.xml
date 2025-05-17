@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:text="Войти"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
@@ -22,10 +22,10 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:text="Выйти"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_hp" />
 
@@ -37,6 +37,7 @@
         android:layout_marginTop="544dp"
         android:text="Зарегистрироваться"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,24 +108,14 @@
         app:layout_constraintTop_toBottomOf="@+id/FirstNameGAD" />
 
     <TextView
-        android:id="@+id/FotoGAD"
-        android:layout_width="290px"
-        android:layout_height="100px"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="16dp"
-        android:text="Фото"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LastNameGAD" />
-
-    <TextView
         android:id="@+id/GenderGAD"
         android:layout_width="290px"
         android:layout_height="100px"
         android:layout_marginStart="33dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:text="Пол"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FotoGAD" />
+        app:layout_constraintTop_toBottomOf="@+id/LastNameGAD" />
 
     <TextView
         android:id="@+id/PhoneGAD"
@@ -170,40 +161,29 @@
         app:layout_constraintStart_toEndOf="@+id/LastNameGAD"
         app:layout_constraintTop_toBottomOf="@+id/NameAddGAD" />
 
-    <EditText
-        android:id="@+id/FotoAddGAD"
+    <RadioGroup
+        android:id="@+id/radioGroupGender"
         android:layout_width="600px"
         android:layout_height="100px"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textUri"
-        android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/FotoGAD"
-        app:layout_constraintTop_toBottomOf="@+id/LastNameAddGAD" />
-
-    <RadioButton
-        android:id="@+id/GenderMGAD"
-        android:layout_width="wrap_content"
-        android:layout_height="100px"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="М"
-        android:visibility="visible"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toEndOf="@+id/GenderGAD"
-        app:layout_constraintTop_toBottomOf="@+id/FotoAddGAD" />
+        app:layout_constraintTop_toBottomOf="@+id/LastNameAddGAD">
 
-    <RadioButton
-        android:id="@+id/GenderFGAD"
-        android:layout_width="wrap_content"
-        android:layout_height="100px"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:text="Ж"
-        android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/GenderMGAD"
-        app:layout_constraintTop_toBottomOf="@+id/FotoAddGAD" />
+        <RadioButton
+            android:id="@+id/radioMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="М" />
+
+        <RadioButton
+            android:id="@+id/radioFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ж" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/PhoneAddGAD"
@@ -214,7 +194,7 @@
         android:ems="10"
         android:inputType="phone"
         app:layout_constraintStart_toEndOf="@+id/PhoneGAD"
-        app:layout_constraintTop_toBottomOf="@+id/GenderFGAD" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupGender" />
 
     <EditText
         android:id="@+id/CardAddGAD"
@@ -237,5 +217,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/ButtonForSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Сохранить данные"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.896" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
