@@ -49,7 +49,9 @@ class Profile : AppCompatActivity() {
             R.id.NameGAD,
             R.id.Name2GAD,
             R.id.button_hp,
-            R.id.textViewProf
+            R.id.textViewProf,
+
+            R.id.button_orders
         )
     }
 
@@ -82,7 +84,7 @@ class Profile : AppCompatActivity() {
                 R.id.CardAddGAD, R.id.ButtonForSave,
                 R.id.FirstNameGAD, R.id.LastNameGAD,
                 R.id.GenderGAD, R.id.PhoneGAD, R.id.CardGAD,
-                R.id.NameGAD, R.id.Name2GAD, R.id.textViewProf
+                R.id.NameGAD, R.id.Name2GAD, R.id.textViewProf, R.id.button_orders
             ).forEach { viewId ->
                 findViewById<View>(viewId).visibility = View.VISIBLE
             }
@@ -210,7 +212,6 @@ class Profile : AppCompatActivity() {
         val button: Button = findViewById(R.id.button2)
         val button2: Button = findViewById(R.id.button_hp)
         val butAnReg: Button = findViewById(R.id.button)
-        val buttonOrders: Button = findViewById(R.id.button_orders)
 
         // Если пользователь не авторизован - сразу переходим на регистрацию
         if (savedEmail == null) {
@@ -244,6 +245,10 @@ class Profile : AppCompatActivity() {
         findViewById<Button>(R.id.ButtonForSave).setOnClickListener {
             saveUserData()
         }
+
+        findViewById<Button>(R.id.button_orders).setOnClickListener {
+            startActivity(Intent(this, OrdersActivity::class.java))
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -251,12 +256,6 @@ class Profile : AppCompatActivity() {
         if (requestCode == AUTH_REQUEST_CODE && resultCode == RESULT_OK) {
             recreate() // Перезагружаем Activity после успешного входа
         }
-
-        buttonOrders.setOnClickListener {
-            val intent = Intent(this, OrdersActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     private fun loadAndDisplayUserData(email: String) {

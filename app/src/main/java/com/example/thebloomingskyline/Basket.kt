@@ -2,14 +2,20 @@ package com.example.thebloomingskyline
 
 import Item
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class Basket : AppCompatActivity() {
     private lateinit var shippingField: EditText
@@ -39,6 +45,40 @@ class Basket : AppCompatActivity() {
         setupRecyclerView()
         loadCartFromFirestore()
         setupPlaceOrderButton()
+        loadUserPaymentData()
+    }
+
+    // В вашей активности (например, CheckoutActivity.kt)
+    private fun loadUserPaymentData() {
+        // 1. Получаем ссылку на Firestore и текущего пользователя
+        val db = Firebase.firestore
+        val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email
+            ?: return // Если пользователь не авторизован, выходим
+
+
+        db.collection("infAboutUsers")
+            .document(currentUserEmail)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // 3. Извлекаем номер карты из документа
+                    val cardNumber = document.getString("card_number") ?: ""
+
+                    // 5. Устанавливаем значение в поле paymentField
+                    findViewById<AppCompatEditText>(R.id.paymentField).apply {
+                        setText(cardNumber)
+                        // Делаем поле нередактируемым (опционально)
+                        isEnabled = false
+                        setTextColor(ContextCompat.getColor(context, R.color.black))
+                    }
+                } else {
+                    Log.d("Firestore", "Документ не существует")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Firestore", "Ошибка получения данных", exception)
+                Toast.makeText(this, "Ошибка загрузки данных карты", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun initViews() {
