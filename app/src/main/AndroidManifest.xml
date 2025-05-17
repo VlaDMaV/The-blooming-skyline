@@ -25,6 +25,9 @@
             android:name=".Catalog"
             android:exported="false" />
         <activity
+            android:name=".OrdersActivity"
+            android:exported="false" />
+        <activity
             android:name=".catalogue.FlowersActivity"
             android:exported="false" />
         <activity

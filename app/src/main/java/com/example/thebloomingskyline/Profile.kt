@@ -41,6 +41,7 @@ class Profile : AppCompatActivity() {
         val button: Button = findViewById(R.id.button2)
         val button2: Button = findViewById(R.id.button_hp)
         val butAnReg: Button = findViewById(R.id.button)
+        val buttonOrders: Button = findViewById(R.id.button_orders)
 
         text.text = "Профиль"
         
@@ -63,5 +64,11 @@ class Profile : AppCompatActivity() {
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
+
+        buttonOrders.setOnClickListener {
+            val intent = Intent(this, OrdersActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
