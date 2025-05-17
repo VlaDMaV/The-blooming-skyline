@@ -1,38 +1,60 @@
 package com.example.thebloomingskyline
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+
 
 class OrdersActivity : AppCompatActivity() {
     private lateinit var ordersRecyclerView: RecyclerView
-    private lateinit var ordersAdapter: OrdersAdapter
+    private lateinit var currentUserEmail: String
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
 
+        val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
+        currentUserEmail = sharedPreferences.getString("user_email", null) ?: run {
+            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
         ordersRecyclerView = findViewById(R.id.ordersRecyclerView)
         ordersRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        val orders = getUserOrders()
-        ordersAdapter = OrdersAdapter(orders)
-        ordersRecyclerView.adapter = ordersAdapter
+        loadUserOrders()
     }
 
-    private fun getUserOrders(): List<Order> {
-        val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
-        var currentUserEmail = sharedPreferences.getString("user_email", null) ?: run {
-            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
-        }
-        val prefs = getSharedPreferences("user_orders_$currentUserEmail", MODE_PRIVATE)
-        val json = prefs.getString("orders", null) ?: return emptyList()
+    private fun loadUserOrders() {
+        db.collection("user_orders")
+            .document(currentUserEmail)
+            .collection("orders")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.isEmpty) {
+                    Toast.makeText(this, "У вас пока нет заказов", Toast.LENGTH_SHORT).show()
+                    return@addOnSuccessListener
+                }
 
-        val type = object : TypeToken<List<Order>>() {}.type
-        return Gson().fromJson(json, type) ?: emptyList()
+                val ordersAdapter = OrdersAdapter(querySnapshot.documents) { order ->
+                    val intent = Intent(this, OrderDetailActivity::class.java).apply {
+                        putExtra("order_id", order.id)
+                        putExtra("user_email", currentUserEmail)
+                    }
+                    startActivity(intent)
+                }
+                ordersRecyclerView.adapter = ordersAdapter
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Ошибка загрузки заказов: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }

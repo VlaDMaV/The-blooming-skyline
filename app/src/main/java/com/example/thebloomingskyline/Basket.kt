@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Basket : AppCompatActivity() {
     private lateinit var shippingField: EditText
@@ -20,15 +18,16 @@ class Basket : AppCompatActivity() {
     private lateinit var promoField: EditText
     private lateinit var placeOrderButton: AppCompatButton
     private lateinit var cartRecyclerView: RecyclerView
+    private lateinit var totalAmountTextView: TextView
 
     private lateinit var currentUserEmail: String
-    private lateinit var totalAmountTextView: TextView
+    private val db = FirebaseFirestore.getInstance()
+    private lateinit var basketAdapter: BasketAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
 
-        // Получаем email текущего пользователя
         val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
         currentUserEmail = sharedPreferences.getString("user_email", null) ?: run {
             Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
@@ -36,7 +35,13 @@ class Basket : AppCompatActivity() {
             return
         }
 
-        // Инициализация полей
+        initViews()
+        setupRecyclerView()
+        loadCartFromFirestore()
+        setupPlaceOrderButton()
+    }
+
+    private fun initViews() {
         shippingField = findViewById(R.id.shippingField)
         deliveryField = findViewById(R.id.deliveryField)
         paymentField = findViewById(R.id.paymentField)
@@ -44,80 +49,70 @@ class Basket : AppCompatActivity() {
         placeOrderButton = findViewById(R.id.placeOrderButton)
         cartRecyclerView = findViewById(R.id.cartRecyclerView)
         totalAmountTextView = findViewById(R.id.totalAmountTextView)
+    }
 
-        // Инициализация RecyclerView с товарами текущего пользователя
+    private fun setupRecyclerView() {
         cartRecyclerView.layoutManager = LinearLayoutManager(this)
-        // Получаем корзину текущего пользователя и преобразуем в MutableList
-        val cartItems = getUserCartItems().toMutableList()
-        updateTotalAmount(cartItems)
-
-// Инициализация адаптера с передачей функции для удаления товара
-        val basketAdapter = BasketAdapter(cartItems, { item ->
-            // Логика обработки удаления товара
-            println("Товар удален: ${item.charack.name}")
-            updateTotalAmount(cartItems)
-        }, ::saveCartItems, ::updateTotalAmount)
+        basketAdapter = BasketAdapter(mutableListOf(), currentUserEmail, ::updateTotalAmount)
         cartRecyclerView.adapter = basketAdapter
-        placeOrderButton.setOnClickListener {
-            val shipping = shippingField.text.toString()
-            val delivery = deliveryField.text.toString()
-            val payment = paymentField.text.toString()
-            val promo = promoField.text.toString()
+    }
 
-            if (shipping.isEmpty() || delivery.isEmpty() || payment.isEmpty()) {
-                Toast.makeText(this, "Пожалуйста, заполните все поля", Toast.LENGTH_SHORT).show()
-            } else {
-                placeOrder()
+    private fun loadCartFromFirestore() {
+        db.collection("basket")
+            .document(currentUserEmail)
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    Toast.makeText(this, "Ошибка загрузки корзины", Toast.LENGTH_SHORT).show()
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    val itemsData = snapshot.get("items") as? List<Map<String, Any>> ?: emptyList()
+                    val items = itemsData.map { itemMap ->
+                        Item(
+                            charack = Item.Charack(
+                                desc = itemMap["description"].toString(),
+                                name = itemMap["name"].toString(),
+                                text = ""
+                            ),
+                            count = (itemMap["quantity"] as? Number)?.toInt() ?: 1,
+                            id = (itemMap["itemId"] as? Number)?.toInt() ?: 0,
+                            image = itemMap["imageUrl"].toString(),
+                            price = (itemMap["price"] as? Number)?.toInt() ?: 0
+                        )
+                    }
+                    basketAdapter.updateItems(items)
+                }
             }
-        }
-    }
-
-
-    private fun saveCartItems(items: List<Item>) {
-        val prefs = getSharedPreferences("user_cart_$currentUserEmail", MODE_PRIVATE)
-        val editor = prefs.edit()
-        val json = Gson().toJson(items)
-        editor.putString("cart_items", json)
-        editor.apply()
-    }
-
-    // Получение корзины текущего пользователя
-    fun getUserCartItems(): List<Item> {
-        val prefs = getSharedPreferences("user_cart_$currentUserEmail", MODE_PRIVATE)
-        val json = prefs.getString("cart_items", null) ?: return emptyList()
-
-        val type = object : TypeToken<List<Item>>() {}.type
-        return Gson().fromJson(json, type) ?: emptyList()
     }
 
     private fun updateTotalAmount(cartItems: List<Item>) {
-        val totalAmount =
-            cartItems.sumOf { it.price * it.count } // Предполагается, что у Item есть свойство price
-        totalAmountTextView.text = "Сумма: %d".format(totalAmount)
+        val totalAmount = cartItems.sumOf { it.price * it.count }
+        totalAmountTextView.text = "Сумма: %d ₽".format(totalAmount)
     }
 
-    private fun saveOrder(order: Order) {
-        val prefs = getSharedPreferences("user_orders_$currentUserEmail", MODE_PRIVATE)
-        val editor = prefs.edit()
+    private fun setupPlaceOrderButton() {
+        placeOrderButton.setOnClickListener {
+            if (basketAdapter.itemCount == 0) {
+                Toast.makeText(this, "Корзина пуста", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-        // Получаем текущие заказы
-        val existingOrdersJson = prefs.getString("orders", null) ?: "[]"
-        val type = object : TypeToken<MutableList<Order>>() {}.type
-        val existingOrders: MutableList<Order> = Gson().fromJson(existingOrdersJson, type)
+            val shipping = shippingField.text.toString()
+            val delivery = deliveryField.text.toString()
+            val payment = paymentField.text.toString()
 
-        // Добавляем новый заказ
-        existingOrders.add(order)
+            if (shipping.isEmpty() || delivery.isEmpty() || payment.isEmpty()) {
+                Toast.makeText(this, "Заполните все обязательные поля", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-        // Сохраняем обновленный список заказов
-        val json = Gson().toJson(existingOrders)
-        editor.putString("orders", json)
-        editor.apply()
+            placeOrder()
+        }
     }
 
-    // Оформление заказа
     private fun placeOrder() {
-        val cartItems = getUserCartItems()
-        if (cartItems.isEmpty()) {
+        if (basketAdapter.itemCount == 0) {
             Toast.makeText(this, "Корзина пуста", Toast.LENGTH_SHORT).show()
             return
         }
@@ -127,23 +122,54 @@ class Basket : AppCompatActivity() {
         val payment = paymentField.text.toString()
         val promo = promoField.text.toString()
 
-        val order = Order(cartItems, shipping, delivery, payment, promo)
-        saveOrder(order) // Сохраняем заказ
+        val items = basketAdapter.getItems()
+        val timestamp = System.currentTimeMillis()
+        val orderId = "order_$timestamp" // Уникальный ID заказа
 
-        clearUserCart()
+        val orderData = hashMapOf(
+            "items" to items.map { item ->
+                hashMapOf(
+                    "id" to item.id,
+                    "name" to item.charack.name,
+                    "description" to item.charack.desc,
+                    "price" to item.price,
+                    "quantity" to item.count,
+                    "imageUrl" to item.image
+                )
+            },
+            "shipping" to shipping,
+            "delivery" to delivery,
+            "payment" to payment,
+            "promo" to promo,
+            "timestamp" to timestamp,
+            "status" to "Новый"
+        )
 
-        Toast.makeText(this, "Заказ выполнен успешно", Toast.LENGTH_SHORT).show()
-        finish()
+        // Сохраняем заказ в подколлекцию пользователя
+        db.collection("user_orders")
+            .document(currentUserEmail) // Документ с email пользователя
+            .collection("orders")       // Подколлекция заказов
+            .document(orderId)          // Документ заказа
+            .set(orderData)
+            .addOnSuccessListener {
+                clearCart()
+                Toast.makeText(this, "Заказ оформлен успешно", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Ошибка оформления заказа: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
-
-    // Очистка корзины пользователя
-    private fun clearUserCart() {
-        getSharedPreferences("user_cart_$currentUserEmail", MODE_PRIVATE)
-            .edit()
-            .remove("cart_items")
-            .apply()
-        totalAmountTextView.text = "Сумма: %d".format(0)
+    private fun clearCart() {
+        db.collection("basket")
+            .document(currentUserEmail)
+            .delete()
+            .addOnSuccessListener {
+                basketAdapter.updateItems(emptyList())
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Ошибка при очистке корзины", Toast.LENGTH_SHORT).show()
+            }
     }
-
 }

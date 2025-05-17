@@ -1,6 +1,5 @@
 package com.example.thebloomingskyline
 
-
 import Item
 import android.os.Bundle
 import android.view.View
@@ -10,21 +9,28 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ItemDetailActivity : AppCompatActivity() {
 
     private var currentQuantity = 1
     private lateinit var currentItem: Item
+    private lateinit var currentUserEmail: String
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_detail)
 
         // Получаем текущего пользователя
+        val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
+        currentUserEmail = sharedPreferences.getString("user_email", null) ?: run {
+            Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
 
-
+        // Получаем переданный товар
         val item = intent.getSerializableExtra("item") as? Item ?: run {
             finish()
             return
@@ -32,6 +38,16 @@ class ItemDetailActivity : AppCompatActivity() {
         currentItem = item
 
         // Инициализация views
+        initViews()
+
+        // Заполнение данных о товаре
+        displayItemDetails()
+
+        // Проверка на наличие в корзине
+        checkItemInCart()
+    }
+
+    private fun initViews() {
         val nameView: TextView = findViewById(R.id.detailName)
         val descView: TextView = findViewById(R.id.detailDesc)
         val textView: TextView = findViewById(R.id.detailText)
@@ -43,25 +59,9 @@ class ItemDetailActivity : AppCompatActivity() {
         val increaseBtn: AppCompatButton = findViewById(R.id.increaseButton)
         val decreaseBtn: AppCompatButton = findViewById(R.id.decreaseButton)
 
-        // Заполнение данных о товаре
-        nameView.text = item.charack.name
-        descView.text = item.charack.desc
-        textView.text = item.charack.text
-        priceView.text = "${item.price} ₽"
-        quantityView.text = currentQuantity.toString()
-
-        Glide.with(this)
-            .load(item.image)
-            .into(imageView)
-
         // Обработчики кнопок
-        addToCartBtn.setOnClickListener {
-            addToCart(currentQuantity)
-        }
-
-        removeFromCartBtn.setOnClickListener {
-            removeFromCart()
-        }
+        addToCartBtn.setOnClickListener { addToCart() }
+        removeFromCartBtn.setOnClickListener { removeFromCart() }
 
         increaseBtn.setOnClickListener {
             currentQuantity++
@@ -74,78 +74,122 @@ class ItemDetailActivity : AppCompatActivity() {
                 quantityView.text = currentQuantity.toString()
             }
         }
-
-        //Проверка на наличие в корзине
-        val currentItems = getUserCartItems().toMutableList()
-        val existingItemIndex = currentItems.indexOfFirst { it.id == currentItem.id }
-        if (existingItemIndex >= 0) {
-            val removeFromCartBtn: AppCompatButton = findViewById(R.id.removeFromCartButton)
-            removeFromCartBtn.visibility = View.VISIBLE
-        }
     }
 
-    private fun addToCart(quantity: Int) {
-        val currentUser = getCurrentUser(true);
-        if(currentUser == "Unknown") return;
-        val prefs = getSharedPreferences("user_cart_$currentUser", MODE_PRIVATE)
-        val currentItems = getUserCartItems().toMutableList()
+    private fun displayItemDetails() {
+        findViewById<TextView>(R.id.detailName).text = currentItem.charack.name
+        findViewById<TextView>(R.id.detailDesc).text = currentItem.charack.desc
+        findViewById<TextView>(R.id.detailText).text = currentItem.charack.text
+        findViewById<TextView>(R.id.detailPrice).text = "${currentItem.price} ₽"
+        findViewById<TextView>(R.id.quantityText).text = currentQuantity.toString()
 
-        // Проверяем, есть ли уже такой товар в корзине
-        val existingItemIndex = currentItems.indexOfFirst { it.id == currentItem.id }
-
-        if (existingItemIndex != -1) {
-            // Обновляем количество, если товар уже есть
-            currentItems[existingItemIndex].count += quantity
-        } else {
-            // Добавляем новый товар
-            currentItem.count = quantity
-            currentItems.add(currentItem)
-        }
-
-        saveCartItems(currentItems)
-        Toast.makeText(this, "Товар добавлен в корзину", Toast.LENGTH_SHORT).show()
-        val removeFromCartBtn: AppCompatButton = findViewById(R.id.removeFromCartButton)
-        removeFromCartBtn.visibility = View.VISIBLE
+        Glide.with(this)
+            .load(currentItem.image)
+            .into(findViewById(R.id.detailImage))
     }
 
-    private fun getCurrentUser(action: Boolean): String {
-        val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
-        var currentUserEmail = sharedPreferences.getString("user_email", null) ?: run {
-            if (action) {
-                Toast.makeText(this, "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
+    private fun checkItemInCart() {
+        db.collection("basket")
+            .document(currentUserEmail)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val items = document.get("items") as? List<Map<String, Any>> ?: emptyList()
+                    val isInCart = items.any {
+                        (it["itemId"] as? Number)?.toInt() == currentItem.id
+                    }
+                    updateCartButtonVisibility(isInCart)
+                }
             }
-            return "Unknown"
-        }
-        return currentUserEmail;
+            .addOnFailureListener {
+                Toast.makeText(this, "Ошибка проверки корзины", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateCartButtonVisibility(isInCart: Boolean) {
+        findViewById<AppCompatButton>(R.id.removeFromCartButton).visibility =
+            if (isInCart) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun addToCart() {
+        db.collection("basket")
+            .document(currentUserEmail)
+            .get()
+            .addOnSuccessListener { document ->
+                val currentItems = if (document.exists()) {
+                    (document.get("items") as? List<Map<String, Any>> ?: emptyList()).toMutableList()
+                } else {
+                    mutableListOf()
+                }
+
+                updateOrAddItem(currentItems, currentQuantity)
+                saveCartToFirestore(currentItems)
+                Toast.makeText(this, "Товар добавлен в корзину", Toast.LENGTH_SHORT).show()
+                updateCartButtonVisibility(true)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Ошибка добавления в корзину", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun removeFromCart() {
-        val currentUser = getCurrentUser(true);
-        if (currentUser == "Unknown") return;
-        val prefs = getSharedPreferences("user_cart_$currentUser", MODE_PRIVATE)
-        val currentItems = getUserCartItems().toMutableList()
+        db.collection("basket")
+            .document(currentUserEmail)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val currentItems = (document.get("items") as? List<Map<String, Any>> ?: emptyList())
+                        .filterNot { (it["itemId"] as? Number)?.toInt() == currentItem.id }
+                        .toMutableList()
 
-        currentItems.removeAll { it.id == currentItem.id }
-
-        saveCartItems(currentItems)
-        Toast.makeText(this, "Товар удален из корзины", Toast.LENGTH_SHORT).show()
-        val removeFromCartBtn: AppCompatButton = findViewById(R.id.removeFromCartButton)
-        removeFromCartBtn.visibility = View.INVISIBLE
+                    saveCartToFirestore(currentItems)
+                    Toast.makeText(this, "Товар удален из корзины", Toast.LENGTH_SHORT).show()
+                    updateCartButtonVisibility(false)
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Ошибка удаления из корзины", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun getUserCartItems(): List<Item> {
-        val prefs = getSharedPreferences("user_cart_${getCurrentUser(false)}", MODE_PRIVATE)
-        val json = prefs.getString("cart_items", null) ?: return emptyList()
+    private fun updateOrAddItem(items: MutableList<Map<String, Any>>, quantity: Int) {
+        val existingItemIndex = items.indexOfFirst {
+            (it["itemId"] as? Number)?.toInt() == currentItem.id
+        }
 
-        val type = object : TypeToken<List<Item>>() {}.type
-        return Gson().fromJson(json, type) ?: emptyList()
+        if (existingItemIndex != -1) {
+            val currentQty = (items[existingItemIndex]["quantity"] as? Number)?.toInt() ?: 0
+            items[existingItemIndex] = items[existingItemIndex].toMutableMap().apply {
+                put("quantity", currentQty + quantity)
+            }
+        } else {
+            items.add(createItemMap(quantity))
+        }
     }
 
-    private fun saveCartItems(items: List<Item>) {
-        val currentUser = getCurrentUser(true);
-        if (currentUser == "Unknown") return;
-        val prefs = getSharedPreferences("user_cart_$currentUser", MODE_PRIVATE)
-        val json = Gson().toJson(items)
-        prefs.edit().putString("cart_items", json).apply()
+    private fun createItemMap(quantity: Int): Map<String, Any> {
+        return mapOf(
+            "itemId" to currentItem.id,
+            "name" to currentItem.charack.name,
+            "description" to currentItem.charack.desc,
+            "price" to currentItem.price,
+            "quantity" to quantity,
+            "imageUrl" to currentItem.image
+        )
+    }
+
+    private fun saveCartToFirestore(items: List<Map<String, Any>>) {
+        val cartData = hashMapOf(
+            "userId" to currentUserEmail,
+            "items" to items,
+            "lastUpdated" to System.currentTimeMillis()
+        )
+
+        db.collection("basket")
+            .document(currentUserEmail)
+            .set(cartData)
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Ошибка сохранения корзины: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }
