@@ -48,6 +48,9 @@ class AuthActivity : AppCompatActivity() {
                             val sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE)
                             sharedPreferences.edit().putString("user_email", email).apply()
                             // Пользователь подтвердил email
+                            val intent = Intent(this, Profile::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
                             finish()
                         } else {
                             // Пользователь не подтвердил email
