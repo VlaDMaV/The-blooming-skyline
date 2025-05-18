@@ -16,4 +16,11 @@
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="remove">Удалить</string>
     <string name="catalog">Каталог</string>
+    <string name="basket">Корзина</string>
+    <string name="hint_free">Бесплатная стандартная доставка | 3-4 дня</string>
+    <string name="visa_1234">Visa *1234</string>
+    <string name="promos">Введите промокод</string>
+    <string name="adddress">Введите адрес доставки</string>
+    <string name="place_an_order">Оформить заказ</string>
+    <string name="summ">Сумма: 0.00</string>
 </resources>
