@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFE5D9">
+    android:background="@color/yellow">
 
     <TextView
         android:id="@+id/categoriesLabel"
@@ -11,7 +11,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:padding="16dp"
-        android:background="#FFDDC1" />
+        android:background="@color/pink" />
 
 
     <androidx.recyclerview.widget.RecyclerView
