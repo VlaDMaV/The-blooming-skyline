@@ -4,11 +4,16 @@ import Item
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.thebloomingskyline.Basket
+import com.example.thebloomingskyline.Catalog
+import com.example.thebloomingskyline.HomePage
 import com.example.thebloomingskyline.ItemDetailActivity
+import com.example.thebloomingskyline.Profile
 import com.example.thebloomingskyline.R
 import com.example.thebloomingskyline.catalogue.entity.Flower
 
@@ -36,6 +41,20 @@ class FlowersActivity : AppCompatActivity() {
 
         observeFlowers(loadFlowersFromCache());
         //setupAddButton()
+
+        // === Меню ===
+        findViewById<ImageButton>(R.id.imageButton1).setOnClickListener {
+            startActivity(Intent(this, HomePage::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton2).setOnClickListener {
+            startActivity(Intent(this, Catalog::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton4).setOnClickListener {
+            startActivity(Intent(this, Basket::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton5).setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
+        }
     }
 
     private fun loadFlowersFromCache(): List<Flower> {

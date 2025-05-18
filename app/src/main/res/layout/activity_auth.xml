@@ -89,11 +89,11 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="152dp"
-        android:layout_height="138dp"
-        app:srcCompat="@drawable/ic_cactus"
+        android:layout_width="283dp"
+        android:layout_height="248dp"
         android:layout_gravity="bottom"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="240dp"/>
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="90dp"
+        app:srcCompat="@drawable/ic_cactus" />
 
 </LinearLayout>

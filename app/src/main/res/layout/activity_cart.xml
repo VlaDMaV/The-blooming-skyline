@@ -9,20 +9,23 @@
     tools:context=".Basket">
 
     <!-- Заголовок Корзина -->
+
+    <!-- Поле для ввода адреса доставки -->
+
     <TextView
         android:id="@+id/basketTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="4dp"
         android:text="@string/basket"
+        android:textColor="@color/brown"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/brown"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Поле для ввода адреса доставки -->
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/deliveryField"
         android:layout_width="0dp"
@@ -30,7 +33,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
-        android:hint="@string/hint_free"
+        android:hint="Дата и время доставки"
         android:textColorHint="@color/hint"
         android:textColor="@color/brown"
         android:padding="16dp"
@@ -167,7 +170,7 @@
             android:layout_height="40dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="#11000000"
             app:srcCompat="@drawable/ic_basket"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 

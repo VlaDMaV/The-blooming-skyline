@@ -1,6 +1,7 @@
 package com.example.thebloomingskyline
 
 import Item
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ class Basket : AppCompatActivity() {
     private lateinit var placeOrderButton: AppCompatButton
     private lateinit var cartRecyclerView: RecyclerView
     private lateinit var totalAmountTextView: TextView
+    private var finalTotalAmount: Int = 0
 
     private lateinit var currentUserEmail: String
     private val db = FirebaseFirestore.getInstance()
@@ -62,9 +64,17 @@ class Basket : AppCompatActivity() {
         findViewById<ImageButton>(R.id.imageButton5).setOnClickListener {
             startActivity(Intent(this, Profile::class.java))
         }
+
+        promoField.addTextChangedListener(object : android.text.TextWatcher {
+            override fun afterTextChanged(s: android.text.Editable?) {
+                updateTotalAmount(basketAdapter.getItems())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
-    // В вашей активности (например, CheckoutActivity.kt)
     private fun loadUserPaymentData() {
         // 1. Получаем ссылку на Firestore и текущего пользователя
         val db = Firebase.firestore
@@ -144,8 +154,73 @@ class Basket : AppCompatActivity() {
 
     private fun updateTotalAmount(cartItems: List<Item>) {
         val totalAmount = cartItems.sumOf { it.price * it.count }
-        totalAmountTextView.text = "Сумма: %d ₽".format(totalAmount)
+        val promoInput = promoField.text.toString().trim()
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("promo").get()
+            .addOnSuccessListener { result ->
+                var isPromoValid = false
+                var discountValue: Int? = null
+
+                for (document in result) {
+                    val promoCode = document.getString("promo")
+                    if (promoInput == promoCode) {
+                        isPromoValid = true
+                        discountValue = document.getLong("discount")?.toInt()
+                        break
+                    }
+                }
+
+                checkUserOrders(this) { hasOrders, orderCount ->
+                    val isFirstOrder = !hasOrders
+
+                    if (isPromoValid && discountValue != null && isFirstOrder) {
+                        val discountedAmount = totalAmount - (totalAmount * discountValue / 100)
+                        finalTotalAmount = discountedAmount
+                        totalAmountTextView.text = "Сумма: %d ₽".format(discountedAmount)
+                        Toast.makeText(
+                            this,
+                            "Промокод принят! Скидка $discountValue%",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        finalTotalAmount = totalAmount
+                        totalAmountTextView.text = "Сумма: %d ₽".format(totalAmount)
+
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Ошибка при получении промокодов", e)
+                Toast.makeText(this, "Ошибка при проверке промокода", Toast.LENGTH_SHORT).show()
+            }
+
     }
+
+
+    fun checkUserOrders(context: Context, callback: (hasOrders: Boolean, orderCount: Int) -> Unit) {
+        val sharedPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE)
+        val currentUserEmail = sharedPreferences.getString("user_email", null)
+
+        if (currentUserEmail == null) {
+            callback(false, 0)
+            return
+        }
+
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("user_orders")
+            .document(currentUserEmail)
+            .collection("orders")
+            .get()
+            .addOnSuccessListener { documents ->
+                callback(!documents.isEmpty, documents.size())
+            }
+            .addOnFailureListener {
+                callback(false, 0)
+            }
+    }
+
 
     private fun setupPlaceOrderButton() {
         placeOrderButton.setOnClickListener {
@@ -188,7 +263,7 @@ class Basket : AppCompatActivity() {
                     "id" to item.id,
                     "name" to item.charack.name,
                     "description" to item.charack.desc,
-                    "price" to item.price,
+                    "price" to finalTotalAmount / item.count,
                     "quantity" to item.count,
                     "imageUrl" to item.image
                 )
@@ -210,6 +285,7 @@ class Basket : AppCompatActivity() {
             .addOnSuccessListener {
                 clearCart()
                 Toast.makeText(this, "Заказ оформлен успешно", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, Profile::class.java))
                 finish()
             }
             .addOnFailureListener { e ->

@@ -8,6 +8,24 @@
     android:background="@color/yellow"
     tools:context=".Profile">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="242dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="25dp"
+        android:fontFamily="@font/carattere"
+        android:shadowColor="@color/black"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="10"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/salmon"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_hp"
@@ -33,16 +51,18 @@
         android:backgroundTint="@color/green"
         android:text="@string/exit"
         android:textColor="@color/brown"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CardAddGAD" />
+        app:layout_constraintTop_toBottomOf="@+id/CardAddGAD"
+        app:layout_constraintVertical_bias="0.721" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="220dp"
         android:backgroundTint="@color/green"
         android:text="@string/button1"
         android:textColor="@color/brown"
@@ -52,17 +72,16 @@
 
     <Button
         android:id="@+id/button_orders"
-        android:layout_width="wrap_content"
+        android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
         android:text="@string/my_orders"
         android:textColor="@color/brown"
-        app:layout_constraintBottom_toTopOf="@+id/ButtonForSave"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.473" />
+        app:layout_constraintTop_toBottomOf="@+id/ButtonForSave"
+        app:layout_constraintVertical_bias="0.128" />
 
     <TextView
         android:id="@+id/FirstNameGAD"
@@ -70,7 +89,7 @@
         android:layout_height="100px"
         android:text="@string/name"
         android:paddingStart="5dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:textColor="@color/brown"
         android:gravity="center_vertical"
         android:background="@drawable/shape_rounded_variants"
@@ -140,7 +159,7 @@
         android:layout_width="600px"
         android:layout_height="100px"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="58dp"
         android:ems="10"
         android:inputType="text"
         android:textColor="@color/brown"
@@ -223,7 +242,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92" />
+        app:layout_constraintVertical_bias="0.485" />
+
+    <TextView
+        android:id="@+id/promoTextView"
+        android:fontFamily="@font/carattere"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_promocode"
+        android:padding="8dp"
+        android:text="Промокод на 10% при первом\nзаказе: TheBloomingSkyline"
+        android:textColor="@color/white"
+        android:lineSpacingExtra="4dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="start"
+        android:textAlignment="viewStart"
+        app:layout_constraintTop_toBottomOf="@id/button_orders"
+        app:layout_constraintBottom_toTopOf="@id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -272,7 +313,7 @@
             android:layout_height="40dp"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
+            android:background="#11000000"
             app:srcCompat="@drawable/ic_profile"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </LinearLayout>
@@ -284,10 +325,10 @@
         android:rotation="30"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintHorizontal_bias="0.088"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CardGAD"
-        app:layout_constraintVertical_bias="0.134"
+        app:layout_constraintVertical_bias="0.238"
         app:srcCompat="@drawable/ic_flower_1" />
 
     <ImageView
@@ -296,10 +337,10 @@
         android:layout_height="70dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintHorizontal_bias="0.952"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CardAddGAD"
-        app:layout_constraintVertical_bias="0.71"
+        app:layout_constraintVertical_bias="0.941"
         app:srcCompat="@drawable/ic_flower_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

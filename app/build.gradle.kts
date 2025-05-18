@@ -54,7 +54,7 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     kapt("com.github.bumptech.glide:compiler:4.16.0")
-
+    implementation("com.google.android.material:material:1.5.0")
 
 
     implementation(libs.androidx.core.ktx)

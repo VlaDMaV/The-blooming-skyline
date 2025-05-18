@@ -102,8 +102,8 @@
         android:id="@+id/imageView6"
         android:layout_width="166dp"
         android:layout_height="114dp"
+        android:layout_marginTop="40dp"
         android:rotation="47"
-        app:srcCompat="@drawable/ic_rose"
-        android:layout_marginTop="20dp"/>
+        app:srcCompat="@drawable/ic_rose" />
 
 </LinearLayout>

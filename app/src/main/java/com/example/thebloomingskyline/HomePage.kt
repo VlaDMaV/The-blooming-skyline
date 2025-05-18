@@ -60,9 +60,14 @@ class HomePage : AppCompatActivity() {
             val type = object : TypeToken<List<Item>>() {}.type
             val itemsList: List<Item> = Gson().fromJson(json, type)
 
+            val headerData = HeaderData(
+                title = getString(R.string.app_name),
+                imageUrl = R.drawable.march
+            )
+
             val proList: RecyclerView = findViewById(R.id.productList)
             proList.layoutManager = LinearLayoutManager(this)
-            proList.adapter = ProductAdapter(itemsList)
+            proList.adapter = ProductAdapter(headerData, itemsList)
 
             Log.d("HomePage", "Кэш успешно загружен.")
         } else {
@@ -112,9 +117,14 @@ class HomePage : AppCompatActivity() {
                         .putInt("items_hash", newHash)
                         .apply()
 
+                    val headerData = HeaderData(
+                        title = getString(R.string.app_name),
+                        imageUrl = R.drawable.march
+                    )
+
                     val proList: RecyclerView = findViewById(R.id.productList)
                     proList.layoutManager = LinearLayoutManager(this)
-                    proList.adapter = ProductAdapter(itemsList)
+                    proList.adapter = ProductAdapter(headerData, itemsList)
 
                     Log.d("HomePage", "Данные обновлены из Firebase")
                 } else {

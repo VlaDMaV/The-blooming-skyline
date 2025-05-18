@@ -1,8 +1,10 @@
 package com.example.thebloomingskyline
 
 import Item
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -45,6 +47,20 @@ class ItemDetailActivity : AppCompatActivity() {
 
         // Проверка на наличие в корзине
         checkItemInCart()
+
+        // === Меню ===
+        findViewById<ImageButton>(R.id.imageButton1).setOnClickListener {
+            startActivity(Intent(this, HomePage::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton2).setOnClickListener {
+            startActivity(Intent(this, Catalog::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton4).setOnClickListener {
+            startActivity(Intent(this, Basket::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton5).setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
+        }
     }
 
     private fun initViews() {
