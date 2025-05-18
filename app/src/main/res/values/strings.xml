@@ -23,4 +23,14 @@
     <string name="adddress">Введите адрес доставки</string>
     <string name="place_an_order">Оформить заказ</string>
     <string name="summ">Сумма: 0.00</string>
+    <string name="exit">Выйти</string>
+    <string name="my_orders">Мои заказы</string>
+    <string name="save_data">Сохранить данные</string>
+    <string name="name">ИМЯ</string>
+    <string name="last_name">ФАМИЛИЯ</string>
+    <string name="gender">Пол</string>
+    <string name="phone">Телефон</string>
+    <string name="card_number">Номер карты</string>
+    <string name="M">М</string>
+    <string name="W">Ж</string>
 </resources>
