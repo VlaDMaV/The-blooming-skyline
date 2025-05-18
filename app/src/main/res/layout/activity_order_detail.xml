@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/yellow">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/brown"
+            android:background="@drawable/shape_rounded_variants_2"/>
 
         <!-- Дата заказа -->
         <TextView
@@ -25,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textColor="@color/brown"/>
 
         <!-- Статус заказа -->
         <TextView
@@ -33,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/black"
+            android:textColor="@color/brown"
             android:textSize="18sp"
             android:textStyle="bold"/>
 
@@ -43,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textColor="@color/brown"/>
 
         <!-- Способ оплаты (изначально скрыт) -->
         <TextView
@@ -52,16 +57,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:textColor="@color/brown"/>
 
         <!-- Заголовок списка товаров -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Состав заказа:"
+            android:text="@string/order_structure"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/brown"/>
 
         <!-- Список товаров -->
         <androidx.recyclerview.widget.RecyclerView
@@ -77,7 +84,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/brown"/>
 
         <!-- Комментарий (изначально скрыт) -->
         <TextView
@@ -86,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textSize="16sp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:textColor="@color/brown"/>
     </LinearLayout>
 </ScrollView>
