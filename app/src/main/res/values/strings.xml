@@ -15,4 +15,5 @@
     <string name="plus">+</string>
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="remove">Удалить</string>
+    <string name="catalog">Каталог</string>
 </resources>
