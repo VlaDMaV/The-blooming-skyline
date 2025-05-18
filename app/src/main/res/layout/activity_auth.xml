@@ -87,4 +87,13 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="152dp"
+        android:layout_height="138dp"
+        app:srcCompat="@drawable/ic_cactus"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="240dp"/>
+
 </LinearLayout>
