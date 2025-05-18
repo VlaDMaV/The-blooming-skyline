@@ -148,7 +148,7 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_home"
+            app:srcCompat="@drawable/ic_home_2"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
