@@ -33,4 +33,5 @@
     <string name="card_number">Номер карты</string>
     <string name="M">М</string>
     <string name="W">Ж</string>
+    <string name="order_structure">Состав заказа:</string>
 </resources>
