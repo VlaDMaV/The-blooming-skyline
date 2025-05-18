@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
@@ -228,6 +229,20 @@ class Profile : AppCompatActivity() {
 
         findViewById<Button>(R.id.button_orders).setOnClickListener {
             startActivity(Intent(this, OrdersActivity::class.java))
+        }
+
+        // === Меню ===
+        findViewById<ImageButton>(R.id.imageButton1).setOnClickListener {
+            startActivity(Intent(this, HomePage::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton2).setOnClickListener {
+            startActivity(Intent(this, Catalog::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton4).setOnClickListener {
+            startActivity(Intent(this, Basket::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton5).setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
         }
     }
 
