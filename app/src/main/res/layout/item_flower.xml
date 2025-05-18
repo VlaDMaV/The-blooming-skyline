@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="#fff6e6">
+    android:background="@color/yellow">
 
     <!-- Изображение цветка (справа) -->
     <ImageView
@@ -13,6 +13,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:scaleType="centerCrop"
+        android:layout_marginBottom="17dp"
         android:contentDescription="Flower image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +28,8 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/flowerImageView"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/brown"/>
 
     <!-- Цена цветка -->
     <TextView
@@ -35,6 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textColor="@color/brown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/flowerImageView"
         app:layout_constraintTop_toBottomOf="@id/flowerNameTextView"/>
@@ -45,6 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textColor="@color/brown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/flowerImageView"
         app:layout_constraintTop_toBottomOf="@id/flowerPriceTextView"/>
@@ -52,8 +56,8 @@
     <!-- Разделительная линия (увеличен отступ сверху) -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#FFE5D9"
+        android:layout_height="7dp"
+        android:background="@color/salmon"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/flowerCountTextView"
         app:layout_constraintStart_toStartOf="parent"
