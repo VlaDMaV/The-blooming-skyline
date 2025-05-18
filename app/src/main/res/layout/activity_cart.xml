@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="24dp"
+    android:background="@color/yellow"
     tools:context=".Basket">
 
     <!-- Заголовок Корзина -->
@@ -13,12 +14,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Корзина"
+        android:text="@string/basket"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/brown"/>
 
     <!-- Поле для ввода адреса доставки -->
     <androidx.appcompat.widget.AppCompatEditText
@@ -28,7 +30,8 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_background"
-        android:hint="Бесплатная стандартная доставка | 3-4 дня"
+        android:hint="@string/hint_free"
+        android:textColorHint="@color/hint"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +45,8 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_background"
-        android:hint="Visa *1234"
+        android:hint="@string/visa_1234"
+        android:textColorHint="@color/hint"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +60,8 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_background"
-        android:hint="Введите промокод"
+        android:hint="@string/promos"
+        android:textColorHint="@color/hint"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +75,8 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_background"
-        android:hint="Введите адрес доставки"
+        android:hint="@string/adddress"
+        android:textColorHint="@color/hint"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,10 +90,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="28dp"
-        android:background="@color/green"
+        android:background="@drawable/shape_rounded_variants"
         android:paddingVertical="12dp"
-        android:text="Оформить заказ"
-        android:textColor="@android:color/white"
+        android:text="@string/place_an_order"
+        android:textColor="@color/brown"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +106,9 @@
         android:layout_margin="16dp"
         android:layout_marginTop="40dp"
         android:padding="8dp"
-        android:text="Сумма: 0.00"
+        android:text="@string/summ"
         android:textSize="24sp"
+        android:textColor="@color/brown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +124,56 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/placeOrderButton" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/salmon"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_home"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_catalog"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_basket"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_profile"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </LinearLayout>
 
 
 
