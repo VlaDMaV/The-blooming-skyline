@@ -69,8 +69,11 @@
         android:layout_width="290px"
         android:layout_height="100px"
         android:text="@string/name"
+        android:paddingStart="5dp"
         android:layout_marginTop="50dp"
         android:textColor="@color/brown"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_rounded_variants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,6 +86,9 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="16dp"
         android:text="@string/last_name"
+        android:paddingStart="5dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_rounded_variants"
         android:textColor="@color/brown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/FirstNameGAD" />
@@ -94,7 +100,10 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="20dp"
         android:text="@string/gender"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_rounded_variants"
         android:textColor="@color/brown"
+        android:paddingStart="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LastNameGAD" />
 
@@ -105,7 +114,10 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="16dp"
         android:text="@string/phone"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_rounded_variants"
         android:textColor="@color/brown"
+        android:paddingStart="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GenderGAD" />
 
@@ -116,7 +128,10 @@
         android:layout_marginStart="33dp"
         android:layout_marginTop="16dp"
         android:text="@string/card_number"
+        android:gravity="center_vertical"
+        android:background="@drawable/shape_rounded_variants"
         android:textColor="@color/brown"
+        android:paddingStart="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PhoneGAD" />
 
@@ -124,11 +139,11 @@
         android:id="@+id/NameAddGAD"
         android:layout_width="600px"
         android:layout_height="100px"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
-        android:textColor="@color/brown"
-        android:layout_marginTop="50dp"
         android:inputType="text"
+        android:textColor="@color/brown"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/FirstNameGAD"
         app:layout_constraintTop_toTopOf="parent" />
@@ -151,10 +166,10 @@
         android:layout_width="600px"
         android:layout_height="100px"
         android:layout_marginTop="20dp"
-        android:textColor="@color/brown"
         android:orientation="horizontal"
+        android:textColor="@color/brown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintHorizontal_bias="0.41"
         app:layout_constraintStart_toEndOf="@+id/GenderGAD"
         app:layout_constraintTop_toBottomOf="@+id/LastNameAddGAD">
 
@@ -163,14 +178,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/M"
-            android:textColor="@color/brown"/>
+            android:textColor="@color/brown" />
 
         <RadioButton
             android:id="@+id/radioFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/W"
-            android:textColor="@color/brown"/>
+            android:textColor="@color/brown" />
     </RadioGroup>
 
     <EditText
@@ -228,7 +243,7 @@
             android:layout_margin="8dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_home"
+            app:srcCompat="@drawable/ic_home_2"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <ImageButton
@@ -261,5 +276,30 @@
             app:srcCompat="@drawable/ic_profile"
             tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="83dp"
+        android:layout_height="76dp"
+        android:rotation="30"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CardGAD"
+        app:layout_constraintVertical_bias="0.134"
+        app:srcCompat="@drawable/ic_flower_1" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CardAddGAD"
+        app:layout_constraintVertical_bias="0.71"
+        app:srcCompat="@drawable/ic_flower_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
