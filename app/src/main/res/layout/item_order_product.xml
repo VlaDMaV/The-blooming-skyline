@@ -3,59 +3,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="12dp"
-    android:background="?attr/selectableItemBackground">
+    android:background="@color/pink">
 
-    <!-- Изображение товара -->
-    <ImageView
-        android:id="@+id/productImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_image"/>
-
-    <!-- Информация о товаре -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <!-- Изображение товара -->
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image"/>
+
+        <!-- Информация о товаре -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical"
+            android:textColor="@color/brown">
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/brown"
+                tools:text="Название товара"/>
+
+            <TextView
+                android:id="@+id/productQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/brown"
+                tools:text="Количество: 2"/>
+
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                android:textColor="@color/brown"
+                tools:text="Цена: 1000₽"/>
+        </LinearLayout>
+
+        <!-- Итоговая сумма за товар -->
         <TextView
-            android:id="@+id/productName"
-            android:layout_width="match_parent"
+            android:id="@+id/productTotal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@color/black"
-            tools:text="Название товара"/>
+            android:textStyle="bold"
+            tools:text="2000₽"
+            android:textColor="@color/brown"
+            android:layout_gravity="center"/>
 
-        <TextView
-            android:id="@+id/productQuantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            tools:text="Количество: 2"/>
-
-        <TextView
-            android:id="@+id/productPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            tools:text="Цена: 1000₽"/>
     </LinearLayout>
 
-    <!-- Итоговая сумма за товар -->
-    <TextView
-        android:id="@+id/productTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        tools:text="2000₽"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:background="@color/yellow"
+        android:layout_marginTop="5dp">
+
+    </View>
+
+
 </LinearLayout>
