@@ -31,7 +31,7 @@
         android:layout_width="254dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="85dp"
         android:fontFamily="@font/inter_bold"
         android:gravity="center"
         android:text="@string/acc"
@@ -97,5 +97,13 @@
         android:text="@string/textBottom"
         android:textColor="@color/brown"
         android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="166dp"
+        android:layout_height="114dp"
+        android:rotation="47"
+        app:srcCompat="@drawable/ic_rose"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>
