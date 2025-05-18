@@ -77,14 +77,14 @@
 
     <Button
         android:id="@+id/button_reg"
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:backgroundTint="@color/green"
         android:layout_marginTop="15dp"
+        android:backgroundTint="@color/green"
         android:text="@string/button1"
         android:textColor="@color/brown"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -96,6 +96,6 @@
         android:fontFamily="@font/aboreto"
         android:text="@string/textBottom"
         android:textColor="@color/brown"
-        android:textSize="15sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
