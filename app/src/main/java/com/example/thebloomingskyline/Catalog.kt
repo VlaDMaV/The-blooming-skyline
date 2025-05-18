@@ -4,6 +4,7 @@ import Item
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -33,6 +34,20 @@ class Catalog : AppCompatActivity() {
 
         setContentView(binding.root)
         setupRecyclerView(loadCategoriesFromCache())
+
+        // === Меню ===
+        findViewById<ImageButton>(R.id.imageButton1).setOnClickListener {
+            startActivity(Intent(this, HomePage::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton2).setOnClickListener {
+            startActivity(Intent(this, Catalog::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton4).setOnClickListener {
+            startActivity(Intent(this, Basket::class.java))
+        }
+        findViewById<ImageButton>(R.id.imageButton5).setOnClickListener {
+            startActivity(Intent(this, Profile::class.java))
+        }
     }
 
     private fun loadCategoriesFromCache(): List<String> {
