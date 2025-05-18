@@ -4,19 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:fillViewport="true"
+    android:background="@color/yellow">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical">
 
         <ImageView
             android:id="@+id/detailImage"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:layout_marginTop="70dp"/>
 
         <TextView
             android:id="@+id/detailName"
@@ -24,20 +29,26 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/brown"/>
 
         <TextView
             android:id="@+id/detailDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="@color/brown"/>
 
         <TextView
             android:id="@+id/detailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/brown"/>
 
         <TextView
             android:id="@+id/detailPrice"
@@ -45,70 +56,83 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/brown"/>
 
         <!-- Блок управления количеством -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="58dp"
             android:layout_marginTop="24dp"
-            android:gravity="center_vertical">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Количество: "
-                android:textSize="16sp"/>
+                android:layout_marginEnd="10dp"
+                android:text="@string/count_item"
+                android:textColor="@color/brown"
+                android:textSize="18sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/decreaseButton"
                 android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:text="-"
-                android:textSize="20sp"/>
+                android:layout_height="50dp"
+                android:background="@drawable/shape_rounded_variants"
+                android:text="@string/minus"
+                android:textColor="@color/brown"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/quantityText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/_1"
                 android:textSize="18sp"
-                android:layout_marginHorizontal="16dp"/>
+                android:textColor="@color/brown"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/increaseButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="+"
-                android:textSize="20sp"/>
+                android:text="@string/plus"
+                android:textSize="20sp"
+                android:textColor="@color/brown"
+                android:background="@drawable/shape_rounded_variants"/>
         </LinearLayout>
 
         <!-- Кнопки управления корзиной -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="121dp"
             android:layout_marginTop="24dp"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:weightSum="2"
+            android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addToCartButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Добавить в корзину"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/green"/>
+                android:background="@drawable/shape_rounded_variants"
+                android:text="@string/add_to_cart"
+                android:textColor="@color/brown"
+                android:paddingHorizontal="10dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/removeFromCartButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Удалить"
-                android:visibility="invisible"
-                android:backgroundTint="@color/red"/>
+                android:background="@drawable/shape_rounded_variants_2"
+                android:text="@string/remove"
+                android:textColor="@color/white"
+                android:visibility="invisible" />
         </LinearLayout>
 
     </LinearLayout>
